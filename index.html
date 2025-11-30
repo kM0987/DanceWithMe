@@ -1,66 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Dance Portfolio</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background: #f5f5f5;
-      padding: 20px;
-    }
-    .container {
-      max-width: 800px;
-      margin: auto;
-      background: #fff;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    h1 {
-      text-align: center;
-      color: #333;
-    }
-    .upload-section {
-      margin-top: 20px;
-      text-align: center;
-    }
-    input[type="file"] {
-      padding: 10px;
-      border-radius: 8px;
-      background: #eee;
-      border: none;
-    }
-    video {
-      width: 100%;
-      margin-top: 20px;
-      border-radius: 12px;
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dance Portfolio</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0d0d0d;
+            color: white;
+            font-family: 'Arial', sans-serif;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 32px;
+            letter-spacing: 2px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #151515, #000);
+            border-bottom: 1px solid #222;
+            box-shadow: 0 0 25px rgba(255, 0, 100, 0.25);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #151515;
+            border-radius: 15px;
+            box-shadow: 0 0 40px rgba(255, 0, 100, 0.15);
+        }
+
+        #videoPreview {
+            width: 100%;
+            margin-top: 20px;
+            border-radius: 10px;
+            border: 2px solid #333;
+            background: #000;
+        }
+
+        .upload-btn {
+            display: block;
+            width: 100%;
+            padding: 14px 20px;
+            margin-top: 15px;
+            border-radius: 10px;
+            border: none;
+            background: #ff0055;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .upload-btn:hover {
+            background: #ff3377;
+        }
+
+        .file-input {
+            display: none;
+        }
+    </style>
 </head>
+
 <body>
-  <div class="container">
-    <h1>My Dance Portfolio</h1>
-    <p>Upload your dance video and preview it instantly. You can share this page as your portfolio.</p>
 
-    <div class="upload-section">
-      <input type="file" id="videoInput" accept="video/*" />
-      <video id="videoPreview" controls></video>
-    </div>
-  </div>
+<header>
+    My Dance Portfolio
+</header>
 
-  <script>
-    const videoInput = document.getElementById("videoInput");
+<div class="container">
+
+    <button class="upload-btn" onclick="document.getElementById('videoUpload').click();">
+        Upload Your Dance Video
+    </button>
+
+    <input type="file" class="file-input" id="videoUpload" accept="video/*">
+
+    <video id="videoPreview" controls></video>
+
+</div>
+
+<script>
+    const videoUpload = document.getElementById("videoUpload");
     const videoPreview = document.getElementById("videoPreview");
 
-    videoInput.addEventListener("change", function() {
-      const file = this.files[0];
-      if (file) {
-        videoPreview.src = URL.createObjectURL(file);
-      }
+    videoUpload.addEventListener("change", function () {
+        const file = this.files[0];
+        if (file) {
+            const videoURL = URL.createObjectURL(file);
+            videoPreview.src = videoURL;
+            videoPreview.style.display = "block";
+        }
     });
-  </script>
+</script>
+
 </body>
 </html>
