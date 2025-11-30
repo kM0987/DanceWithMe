@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Dances</title>
+<title>My Private Dance Videos</title>
 
 <style>
     body {
@@ -32,6 +32,7 @@
         background: #151515;
         border-radius: 15px;
         box-shadow: 0 0 40px rgba(255, 0, 100, 0.15);
+        text-align: center;
     }
 
     video {
@@ -41,25 +42,46 @@
         background: #000;
         pointer-events: none; /* disable download */
     }
-</style>
 
+    input[type="file"] {
+        margin-bottom: 20px;
+        padding: 10px;
+        border-radius: 10px;
+        background: #222;
+        color: white;
+        border: 1px solid #333;
+        cursor: pointer;
+    }
+</style>
 </head>
 <body oncontextmenu="return false;"> <!-- disable right click -->
 
 <header>
-    My Dances
+    My Dance Videos
 </header>
 
 <div class="container">
-    <!-- Your uploaded video name must be dance.mp4 -->
+    <input type="file" id="uploadVideo" accept="video/*">
     <video id="danceVideo" controls controlsList="nodownload">
-        <source src="dance.mp4" type="video/mp4">
         Your browser does not support video playback.
     </video>
 </div>
 
 <script>
-    // Remove download keyboard shortcuts
+    const uploadVideo = document.getElementById('uploadVideo');
+    const danceVideo = document.getElementById('danceVideo');
+
+    // When user selects a file
+    uploadVideo.addEventListener('change', function() {
+        const file = this.files[0];
+        if(file) {
+            danceVideo.src = URL.createObjectURL(file); // Display selected video
+            danceVideo.load();
+            danceVideo.play();
+        }
+    });
+
+    // Disable keyboard shortcuts for saving video
     document.addEventListener("keydown", function(e) {
         if (e.ctrlKey && (e.key === "s" || e.key === "S")) {
             e.preventDefault();
